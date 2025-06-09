@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Book List</title>
+</head>
+<body>
+    <h1>Books in the Library</h1>
+
+    {% if error %}
+        <p style="color:red;">Error: {{ error }}</p>
+    {% else %}
+        <ul>
+            {% for book in books %}
+                <li>{{ book.title }} by {{ book.author }}</li>
+            {% empty %}
+                <li>No books found.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</body>
+</html>

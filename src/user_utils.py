@@ -33,3 +33,23 @@ def authenticate_user(username, password):
     except Exception as e:
         print("Error during authentication:", e)
         return False
+
+def register_user(username, password, email):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+        query = "INSERT INTO users (username, password, email) VALUES (%s, %s, %s)"
+        cursor.execute(query, (username, hashed_password, email))
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        return True
+
+    except Exception as e:
+        print("Error during registration:", e)
+        return False

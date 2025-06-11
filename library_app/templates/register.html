@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 0;
+            font-family: 'Merriweather', serif;
+            background-color: #2e2b2b;
+            color: #e6e0d4;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .register-container {
+            background-color: #3a3a3a;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            width: 350px;
+            max-width: 90%;
+        }
+
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #fefae0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #d4ccc4;
+        }
+
+        input[type="text"], input[type="password"], .register-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background-color: #5e5e5e;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #588157;
+            color: #fefae0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Merriweather', serif;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        .register-btn:hover {
+            background-color: #4a7047;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <h2>Register</h2>
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert("{{ message|escapejs }}");
+                {% if "success" in message.tags %}
+                    window.location.href = "{% url 'login' %}";
+                {% endif %}
+            {% endfor %}
+        </script>
+    {% endif %}
+
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+        </div>
+        <div class="form-group">
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" name="full_name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input type="text" id="phone_number" name="phone_number">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="register-btn">Register</button>
+        </div>
+    </form>
+
+    <p style="text-align: center; margin-top: 15px;">
+        Already have an account?
+        <a href="{% url 'login' %}" style="color: #fefae0;">Login</a>
+    </p>
+</div>
+
+</body>
+</html>

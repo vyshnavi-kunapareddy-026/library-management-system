@@ -1,10 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <title>Library Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Merriweather', serif;
+            background-color: #2e2b2b;
+            color: #e6e0d4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .home-container {
+            background-color: #3a3a3a;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #fefae0;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            color: #fefae0;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background-color: #588157;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5a40;
+        }
+
+        .btn-success {
+            background-color: #4f772d;
+        }
+
+        .btn-success:hover {
+            background-color: #3b5e1f;
+        }
+
+        .btn-warning {
+            background-color: #b08968;
+        }
+
+        .btn-warning:hover {
+            background-color: #996d4c;
+        }
+
+        .btn-info {
+            background-color: #6c757d;
+        }
+
+        .btn-info:hover {
+            background-color: #495057;
+        }
+
+        .btn-secondary {
+            background-color: #a3b18a;
+            color: #2e2b2b;
+        }
+
+        .btn-secondary:hover {
+            background-color: #8e9e73;
+        }
+    </style>
 </head>
-<body style="background-color: #2e2b2b; color: #fefae0; font-family: Merriweather, serif;">
-    <h1>Welcome to the Library!</h1>
-    <p>Login successful.</p>
+<body>
+    <div class="home-container">
+        <h1>Welcome to the Library!</h1>
+        <a href="{% url 'view_books' %}" class="btn btn-primary">📚 View Books</a>
+        <a href="{% url 'borrow_book' %}" class="btn btn-success">📖 Borrow a Book</a>
+        <a href="{% url 'return_book' %}" class="btn btn-warning">↩️ Return Book</a>
+        <a href="{% url 'user_book_log' %}" class="btn btn-info">📝 Your Book Log</a>
+        <a href="{% url 'recommend_book' %}" class="btn btn-secondary">🤖 Recommend a Book</a>
+    </div>
 </body>
 </html>

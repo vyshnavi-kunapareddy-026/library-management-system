@@ -17,12 +17,13 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+
         }
 
         .login-container {
             background-color: #3a3a3a;
-            padding: 40px;
-            border-radius: 10px;
+            padding: 50px;
+            border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             width: 350px;
         }
@@ -35,6 +36,7 @@
 
         .form-group {
             margin-bottom: 20px;
+            margin-right:20px
         }
 
         label {
@@ -68,6 +70,24 @@
             background-color: #3a5a40;
         }
 
+        .register-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background-color: #588157;
+            color: #fefae0;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .register-btn:hover {
+            background-color: #3a5a40;
+        }
+
+
         .icon {
             font-size: 2em;
             text-align: center;
@@ -95,7 +115,20 @@
             </div>
 
             <button type="submit" class="login-btn">Login</button>
+
+            {% if success_message %}
+                <p style="color: green; text-align: center;">{{ success_message }}</p>
+            {% endif %}
+            {% if error_message %}
+                <p style="color: red; text-align: center;">{{ error_message }}</p>
+            {% endif %}
         </form>
+
+        <p style="text-align: center; margin: 15px 0;">or</p>
+
+        <a href="{% url 'register' %}" class="register-btn">Register</a>
+
+
     </div>
 </body>
 </html>

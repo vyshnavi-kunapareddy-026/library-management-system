@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import date
 from .recommendation import get_recommendations_for_user
 import logging
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -94,7 +95,6 @@ def get_all_books():
                 'description': row[5],
             })
     return books
-
 
 def view_books(request):
     try:
@@ -233,3 +233,20 @@ def recommend_books(request):
     return render(request, 'recommend_books.html', {
         'recommended_books': recommended_books
     })
+
+def open_library_search(request):
+    query = request.GET.get('q')
+    book_data = None
+    if query:
+        response = requests.get(f'https://openlibrary.org/search.json?q={query}')
+        if response.status_code == 200:
+            results = response.json().get('docs', [])
+            if results:
+                first = results[0]
+                book_data = {
+                    'title': first.get('title'),
+                    'author': first.get('author_name', [''])[0],
+                    'open_library_id': first.get('edition_key', [''])[0]  # for iframe embed
+                }
+
+    return render(request, 'read_open_library.html', {'book': book_data})

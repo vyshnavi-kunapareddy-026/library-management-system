@@ -11,4 +11,5 @@ urlpatterns = [
     path('log/', views.user_book_log, name='user_book_log'),
     path('recommend/', views.recommend_books, name='recommend_books'),
     path('register/', views.register, name='register'),
+    path('read/', views.open_library_search, name='open_library_search'),
 ]

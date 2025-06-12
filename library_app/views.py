@@ -4,6 +4,7 @@ from django.db import connection
 from django.contrib.auth.hashers import make_password, check_password
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date
+from .recommendation import get_recommendations_for_user
 import logging
 
 logger = logging.getLogger(__name__)
@@ -193,8 +194,42 @@ def return_book(request):
 # --------- Placeholder Views --------------------
 
 def user_book_log(request):
-    return render(request, "user_book_log.html")
+    user_id = request.session.get('user_id')
+    if not user_id:
+        messages.error(request, "Please log in to view your book log.")
+        return redirect("login")
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT b.title, b.author, bb.borrow_date, bb.return_date
+            FROM borrowedbooks bb
+            JOIN books b ON bb.book_id = b.id
+            WHERE bb.member_id = %s
+            ORDER BY bb.borrow_date DESC
+        """, [user_id])
+        rows = cursor.fetchall()
+
+    logs = [
+        {
+            'title': row[0],
+            'author': row[1],
+            'borrowed_date': row[2],
+            'returned_date': row[3]
+        }
+        for row in rows
+    ]
+
+    return render(request, "user_book_log.html", {"logs": logs})
 
 
-def recommend_book(request):
-    return render(request, "recommend_book.html")
+
+def recommend_books(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+
+    recommended_books = get_recommendations_for_user(user_id)
+
+    return render(request, 'recommend_books.html', {
+        'recommended_books': recommended_books
+    })

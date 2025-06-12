@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Books</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: #eaeaea;
+        }
+
+        .card {
+            background-color: #2e2e2e;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            color: #fefae0;
+            font-size: 1.25rem;
+        }
+
+        .card-subtitle {
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .match-percent {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #a3b18a;
+            font-weight: 500;
+        }
+
+        .container {
+            padding-top: 60px;
+        }
+
+        .empty-message {
+            color: #999;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-5">Recommended Books</h1>
+
+        {% if recommended_books %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for book in recommended_books %}
+            <div class="col">
+                <div class="card h-100 p-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <h6 class="card-subtitle mb-2">by {{ book.author }}</h6>
+                        {% if book.match_percent %}
+                        <div class="match-percent">Match: {{ book.match_percent }}%</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-message">
+            No recommendations found.
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-5">
+            <a href="{% url 'home' %}" class="btn btn-outline-light">
+                <i class="bi bi-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

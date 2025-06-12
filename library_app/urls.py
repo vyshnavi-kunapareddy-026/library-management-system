@@ -9,6 +9,6 @@ urlpatterns = [
     path('borrow/<int:book_id>/', views.borrow_book, name='borrow_book'),
     path('return/', views.return_book, name='return_book'),
     path('log/', views.user_book_log, name='user_book_log'),
-    path('recommend/', views.recommend_book, name='recommend_book'),
+    path('recommend/', views.recommend_books, name='recommend_books'),
     path('register/', views.register, name='register'),
 ]
